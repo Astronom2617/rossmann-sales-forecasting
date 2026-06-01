@@ -22,12 +22,15 @@ Kaggle — [Rossmann Store Sales](https://www.kaggle.com/c/rossmann-store-sales)
 
 ## Results
 
-| Model | RMSE |
-|---|---|
-| Mean per store | €3267 |
-| Mean per store+day | €2014 |
-| SARIMA (1,0,1)(1,0,1,7) | €2140 |
-| XGBoost | €1632 |
+| Model | RMSE | RMSPE |
+|---|---|---|
+| Mean per store | €3267 | - |
+| Mean per store+day | €2014 | - |
+| SARIMA (1,0,1)(1,0,1,7) | €2140 | - |
+| XGBoost | €1632 | **0.2871** |
+
+RMSPE (Root Mean Squared Percentage Error) is the official Kaggle metric for this competition.
+Calculated on open stores only (Sales > 0), which is consistent with the competition evaluation.
 
 **XGBoost wins** — 50% improvement over naive baseline.
 
@@ -43,11 +46,10 @@ Kaggle — [Rossmann Store Sales](https://www.kaggle.com/c/rossmann-store-sales)
 `Store`, `DayOfWeek`, `Promo`, `SchoolHoliday`, `CompetitionDistance`,
 `month`, `year`, `day_of_week`, `lag_7`, `lag_30`
 
-## Next Steps
-- Tune XGBoost hyperparameters (max_depth, n_estimators)
-- Add more lag features (lag_14, lag_365)
-- Try LightGBM or CatBoost
-- Feature importance analysis
+## Lessons Learned
+- Simple rule-based baseline (store+day mean) outperforms SARIMA — external features matter more than autoregression
+- XGBoost benefits most from lag features and store metadata
+- RMSPE penalizes relative errors — a €100 error on a €200 sale is worse than on a €2000 sale
 
 ## Stack
 Python, Pandas, NumPy, Matplotlib, Statsmodels, XGBoost
